@@ -82,9 +82,9 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     $servername = "localhost";
     $username = "root";
-    $database = "myData";
+    $database = "ana";
     $password = "";
-    $tablename = "Form1";
+    $tablename = "Form";
 
     $fname = $_POST["fname"];
     $lname = $_POST["lname"];
@@ -95,27 +95,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     $email2 = $_POST["email2"];
 
 
-
-
     try{
     $con = new PDO("mysql:host=$servername;dbname=$database",$username,$password);
     $con -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $con->prepare("INSERT INTO $tablename(firstname, lastname, email)
-    VALUES (:firstname, :lastname, :email)");
-    $stmt->bindParam(':firstname', $fname);
-    $stmt->bindParam(':lastname', $lname);
-    $stmt->bindParam(':email', $email);
+    $stmt = $con->prepare("INSERT INTO $tablename(`FirstName`, `LastName`, `Email`)
+    VALUES (:FirstName, :LastName, :Email)");
+    $stmt->bindParam(':FirstName', $fname);
+    $stmt->bindParam(':LastName', $lname);
+    $stmt->bindParam(':Email', $email);
     $stmt->execute();
 
 
-    $stmt2 = $con->prepare("INSERT INTO $tablename(firstname, lastname, email)
-    VALUES (:firstname, :lastname, :email)");
-    $stmt2->bindParam(':firstname', $fname2);
-    $stmt2->bindParam(':lastname', $lname2);
-    $stmt2->bindParam(':email', $email2);
+    $stmt2 = $con->prepare("INSERT INTO $tablename(`FirstName`, `LastName`, `Email`)
+    VALUES (:FirstName, :LastName, :Email)");
+    $stmt2->bindParam(':FirstName', $fname2);
+    $stmt2->bindParam(':LastName', $lname2);
+    $stmt2->bindParam(':Email', $email2);
     $stmt2->execute();
-
 
 
     $display = "New records created successfully ";
